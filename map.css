@@ -1,0 +1,256 @@
+/* Common color variables */
+:root {
+    --color-departures: rgb(217, 25, 25);
+    --color-arrivals: rgb(0, 0, 0);
+}
+
+html, body {
+    margin: 0;
+    padding: 5;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center;     /* Center vertically */
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+h1 {
+    margin-top: 0;
+}
+
+p {
+    padding: 0;
+    margin-top: 0;
+}
+     
+#map {
+    width: 100%;    /* Adjust width to your desired size */
+    height: 100%;   /* Adjust height to your desired size */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: subtle shadow for effect */
+    border-radius: 8px; /* Optional: rounded corners */
+    margin: 1.5em;
+}
+
+#map svg {
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+#map circle {
+    pointer-events: auto;
+    --color-departures: rgb(217, 25, 25);
+    --color-arrivals: rgb(0, 0, 0);
+    --color: color-mix(
+        in oklch,
+        var(--color-departures) calc(100% * var(--departure-ratio)),
+        var(--color-arrivals)
+        );
+    fill: var(--color);
+}
+
+.legend {
+    display: flex;
+    justify-content: space-between; /* Evenly space items */
+    width: 100%; /* Take up the full width */
+    padding: 8px;
+    /* background-color: #f0f0f0; */
+    /* border-radius: 8px; */
+    /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+}
+
+.legend div {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    height: 30px;
+    color: white;
+    /* font-style: italic; */
+    font-weight: bold;
+    /* border-radius: 4px; */
+    text-align: center;
+    margin: 0 2px;
+}
+
+/* Leftmost block: align text to the left */
+.legend div:first-child {
+    justify-content: flex-start; /* Align text to the left */
+    padding-left: 10px; /* Add padding to prevent text from touching the edge */
+}
+
+/* Middle block: keep text centered */
+.legend div:nth-child(2) {
+    justify-content: center; /* Center text */
+}
+
+/* Rightmost block: align text to the right */
+.legend div:last-child {
+    justify-content: flex-end; /* Align text to the right */
+    padding-right: 10px; /* Add padding to prevent text from touching the edge */
+}
+
+.legend div[style="--departure-ratio: 1"] {
+    background-color: var(--color-departures);
+}
+
+.legend div[style="--departure-ratio: 0.5"] {
+    background-color: color-mix(in oklch, var(--color-departures) 50%, var(--color-arrivals) 50%);
+}
+
+.legend div[style="--departure-ratio: 0"] {
+    background-color: var(--color-arrivals);
+}
+
+header {
+    margin-top: 10px;
+    display: flex;
+    gap: 1em;
+    align-items: baseline;
+    justify-content: flex-end; 
+    width: 100%; 
+    
+}
+
+label {
+    margin-top: 0.25em;
+    color: gray;
+    font-style: italic;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end; 
+}
+
+input[type="range"] {
+    display: block;
+    width: 500px;
+}
+
+time {
+    display: block;
+    color: rgb(0, 0, 0);
+    font-style: italic;
+    /* font-weight: bold; */
+    margin-top: 0.25em;
+    text-align: center; 
+}
+
+em {
+    display: block;
+    color: gray;
+    font-style: italic;
+    /* margin-top: 0.5em; */
+    text-align: right; 
+}
+
+/* Container for the control panel */
+.control-panel {
+    margin: 10px 0;  /* Less space around */
+    padding: 8px 10px;
+    background: rgba(255, 255, 255, 0.9);
+    display: flex;
+    justify-content: space-evenly;  /* Space between dropdown and slider */
+    align-items: center;
+    gap: 15px;
+    width: 100%;  /* Full width of the page */
+    box-sizing: border-box;  /* Ensures padding doesn't affect width */
+}
+
+.college-logos {
+    display: flex;
+    justify-content: center; /* Center the logos */
+    gap: 20px;
+    flex-grow: 1;  /* Allow logos to take up remaining space */
+}
+
+.college-logo {
+    max-height: 40px;
+    width: auto;
+}
+
+/* Styles for both selectors (dropdown & slider) */
+.control-panel label {
+    font-size: 14px;  /* Smaller font size */
+    font-weight: bold;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Change the track color */
+input[type="range"] {
+    -webkit-appearance: none; /* Remove default styling */
+    width: 100%;
+    height: 8px;
+    background: #b30000; /* Change this to your desired track color */
+    border-radius: 5px;
+    outline: none;
+}
+
+/* Change the thumb (slider knob) color */
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    background: rgb(217, 25, 25); /* Change this to your desired thumb color */
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+input[type="range"]::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    background: rgb(217, 25, 25); /* Same color for Firefox */
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+
+.control-panel #select-campus {
+    margin-bottom: 10px;
+}
+
+/* Style for the dropdown */
+#campus-select, #time-slider {
+    font-size: 14px;  /* Smaller font size */
+    padding: 6px 8px;
+    border: 2px solid #C8102E; /* Matches your map line color */
+    border-radius: 6px;  /* Slightly rounded */
+    background-color: white;
+    color: #333;
+    outline: none;
+    cursor: pointer;
+    transition: 0.3s;
+    width: 500px; 
+}
+
+/* Style for the selected time text */
+#selected-time {
+    font-size: 14px;
+    font-weight: bold;
+    color: #C8102E;
+}
+
+/* Style for (any time) text */
+#any-time {
+    font-size: 12px;
+    color: #666;
+    margin-top: 0;
+}
+
+/* #time-select {
+    border-style: dotted;
+    border-color: black;
+    border-width: 20px;
+    margin-left: 0;
+} */
+
+
+
+
